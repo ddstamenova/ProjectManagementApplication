@@ -1,0 +1,23 @@
+<div class="container" style="text-align:center">
+  <h1>Welcome!</h1>
+  
+  <form (ngSubmit)="onSubmit(login)" #login="ngForm">  
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" ngModel class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="text" name="password" id="password" ngModel class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="!login.form.valid" >Login</button>
+
+  </form>
+</div>
+
+<div [hidden]="!submitted" style="text-align:center">
+  <h2>You're logged in!</h2>
+</div>
