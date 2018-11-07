@@ -8,9 +8,9 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import {AppRoutingModule} from './app-routing.module';
 import {AuthorizationService} from './authorization.service';
-// import {ApiService} from './api.service';
+import {ApiService} from './api.service';
 
-// import { ApiComponent } from './api/api.component';
+import { ApiComponent } from './api/api.component';
 import { RegisterComponent } from './register/register.component';
 import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
@@ -19,7 +19,7 @@ import { HomeComponent } from './home/home.component';
   declarations: [
     AppComponent,
     LoginComponent,
-    // ApiComponent,
+    ApiComponent,
     RegisterComponent,
     MenuComponent,
     HomeComponent
@@ -33,7 +33,7 @@ import { HomeComponent } from './home/home.component';
   ],
   providers: [
     AuthorizationService,
-    // ApiService
+    ApiService
   ],
   bootstrap: [AppComponent]
 })
