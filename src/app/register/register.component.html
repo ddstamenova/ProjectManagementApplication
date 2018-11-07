@@ -1,34 +1,43 @@
-<div class="container">
+<div class="container" style="text-align:center">
 
-    <div class="row">
-      <div class="col-lg-4">
-        <form (ngSubmit)="register(regform)" #regform="ngForm">
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" ngModel class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" ngModel class="form-control" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Register</button>
-        </form>
+  <form (ngSubmit)="register(regform)" #regform="ngForm" >
+    <div class="form-group">
+      <label for="firstname">First Name</label>
+      <input type="firstname" name="firstname" id="firstname" ngModel class="form-control" required>
       </div>
+    <div class="form-group">
+      <label for="lastname">Last Name</label>
+      <input type="lastname" name="lastname" id="lastname" ngModel class="form-control" required>
     </div>
-    <br/>
-    <div *ngIf="confirmCode" class="row message-row">
-      <h3>Please check your email for the validation code and enter it here:</h3>
-      <div class="col-lg-4">
-        <form (ngSubmit)="validateAuthCode(codeform)" #codeform="ngForm">
-          <div class="form-group">
-            <label for="code">Code</label>
-            <input type="text" name="code" id="code" ngModel class="form-control" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Validate Code</button>
-        </form>
+    <div class="form-group" >
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" ngModel class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" ngModel class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-success">Register</button>
+  </form>
+
+</div>
+
+
+<br/>
+<div *ngIf="confirmCode" class="container" style="text-align:center">
+
+  <h3>Please check your email for the validation code and enter it here:</h3>
+
+    <form (ngSubmit)="validateAuthCode(codeform)" #codeform="ngForm">
+      <div class="form-group">
+        <label for="code">Code</label>
+        <input type="text" name="code" id="code" ngModel class="form-control" required>
       </div>
-    </div>
+      <button type="submit" class="btn btn-success">Validate Code</button>
+    </form>
+
+</div>
     <!-- <div *ngIf="codeWasConfirmed" class="row message-row">
       <h3>Verification Code was confirmed, please click <a routerLink="/login">here</a> to login</h3>
     </div> -->
-  </div>
+  

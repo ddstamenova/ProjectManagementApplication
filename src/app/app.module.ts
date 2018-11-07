@@ -8,19 +8,20 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import {AppRoutingModule} from './app-routing.module';
 import {AuthorizationService} from './authorization.service';
+// import {ApiService} from './api.service';
 
-import { ApiComponent } from './api/api.component';
+// import { ApiComponent } from './api/api.component';
 import { RegisterComponent } from './register/register.component';
-import { MenuComponent } from './menu/menu.component';
+// import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ApiComponent,
+    // ApiComponent,
     RegisterComponent,
-    MenuComponent,
+    // MenuComponent,
     HomeComponent
   ],
   imports: [
@@ -30,7 +31,10 @@ import { HomeComponent } from './home/home.component';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [AuthorizationService],
+  providers: [
+    AuthorizationService,
+    // ApiService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {AuthorizationService} from '../authorization.service';
 import { Router } from '@angular/router';
+// import { ApiService } from '../api.service';
 
 
 @Component({
@@ -17,7 +18,9 @@ export class RegisterComponent {
   error = '';
 
   constructor(private auth: AuthorizationService,
-              private _router: Router) { }
+              private _router: Router,
+              // private api: ApiService
+              ) { }
 
   register(form: NgForm) {
     const email = form.value.email;
@@ -28,7 +31,7 @@ export class RegisterComponent {
       },
       (err) => {
         console.log(err);
-        this.error = 'Registration Error has occurred';
+        this.error = 'Registration error';
       }
     );
   }
@@ -38,13 +41,15 @@ export class RegisterComponent {
 
     this.auth.confirmAuthCode(code).subscribe(
       (data) => {
+        // call api function
+        // this.api.register();                 // api function
         this._router.navigateByUrl('');
         this.codeWasConfirmed = true;
         this.confirmCode = false;
       },
       (err) => {
         console.log(err);
-        this.error = 'Confirm Authorization Error has occurred';
+        this.error = 'Authorization error';
       });
   }
 }

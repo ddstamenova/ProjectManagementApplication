@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 const poolData = {
-  UserPoolId: 'eu-west-2_0yusm3ILu', // user pool id here
-  ClientId: '70rdim0cq8ns62t9386kdoocti' // client id here
+  UserPoolId: 'eu-west-2_0yusm3ILu', // user pool id
+  ClientId: '70rdim0cq8ns62t9386kdoocti' // client id
 };
 
 const userPool = new CognitoUserPool(poolData);
@@ -66,12 +66,12 @@ export class AuthorizationService {
     return Observable.create(observer => {
       userPool.signUp(email, password, attributeList, null, (err, result) => {
         if (err) {
-          console.log('signUp error', err);
+          console.log('sign-in error', err);
           observer.error(err);
         }
 
         this.cognitoUser = result.user;
-        console.log('signUp success', result);
+        console.log('sign-in success', result);
         observer.next(result);
         observer.complete();
       });
