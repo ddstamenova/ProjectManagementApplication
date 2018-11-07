@@ -11,19 +11,19 @@ export class ApiService {
 
   postUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/register';
   postResult: any = {};
-  payload: any = {userId: '10', fname: 'maria', lname: 'stamenova', email: 'maria@example.com'};
+
 
   data: any;
 
   constructor(private http: Http, private auth: AuthorizationService) { }
 
-  register() {
+  register(payload) {
 
     const headers = new Headers();
     headers.set('content-type', 'application-json'); // а
 
 
-    this.http.post(this.postUrl, this.payload, { headers: headers })  // а
+    this.http.post(this.postUrl, payload, { headers: headers })  // а
       .subscribe(
       response => {
         console.log('desааааааааааааааааааааа');

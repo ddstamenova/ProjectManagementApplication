@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {AuthorizationService} from '../authorization.service';
 import { Router } from '@angular/router';
-// import { ApiService } from '../api.service';
+import { ApiService } from '../api.service';
 
 
 @Component({
@@ -16,11 +16,9 @@ export class RegisterComponent {
   confirmCode = false;
   codeWasConfirmed = false;
   error = '';
+  payload: any = {};
 
-  constructor(private auth: AuthorizationService,
-              private _router: Router,
-              // private api: ApiService
-              ) { }
+  constructor(private auth: AuthorizationService, private _router: Router, private api: ApiService) { }
 
   register(form: NgForm) {
     const email = form.value.email;
@@ -28,6 +26,7 @@ export class RegisterComponent {
     this.auth.register(email, password).subscribe(
       (data) => {
         this.confirmCode = true;
+        this.payload = {userId: '1', fname: form.value.firstname, lname: form.value.lastname, email: form.value.email};
       },
       (err) => {
         console.log(err);
@@ -42,7 +41,8 @@ export class RegisterComponent {
     this.auth.confirmAuthCode(code).subscribe(
       (data) => {
         // call api function
-        // this.api.register();                 // api function
+        console.log(this.payload);
+        this.api.register(this.payload);                 // api function
         this._router.navigateByUrl('');
         this.codeWasConfirmed = true;
         this.confirmCode = false;
