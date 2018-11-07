@@ -12,7 +12,7 @@ import {AuthorizationService} from './authorization.service';
 
 // import { ApiComponent } from './api/api.component';
 import { RegisterComponent } from './register/register.component';
-// import { MenuComponent } from './menu/menu.component';
+import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
@@ -21,7 +21,7 @@ import { HomeComponent } from './home/home.component';
     LoginComponent,
     // ApiComponent,
     RegisterComponent,
-    // MenuComponent,
+    MenuComponent,
     HomeComponent
   ],
   imports: [
