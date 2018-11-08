@@ -7,10 +7,14 @@
 
   <h3>Creating a new project</h3>
 
-  <form (ngSubmit)="createProject()" #codeform="ngForm">
+  <form (ngSubmit)="createProject(codeform)" #codeform="ngForm">
+      <div class="form-group">
+          <label for="email">Owner email</label>
+          <input type="email" name="email" id="email" ngModel class="form-control" required>
+        </div>
     <div class="form-group">
-      <label for="pname">Project name</label>
-      <input type="pname" name="pname" id="pname" ngModel class="form-control" required>
+      <label for="name">Project name</label>
+      <input type="name" name="name" id="name" ngModel class="form-control" required>
     </div>
     <div class="form-group">
       <label for="pdescription">Project description</label>
