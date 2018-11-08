@@ -12,16 +12,26 @@ export class ProjectsComponent implements OnInit {
 
   newProjectRequest = false;
   payload: any = {};
+  getResult: any = [];
 
   constructor(private api: ApiService) { }
 
+
   ngOnInit() {
+    // console.log('wooooooooooooooow');
+    this.api.getExistingProjectsOfCurrentUser();
+  }
+
+  loadProjects() {
+    // console.log('projects loaded');
+    this.getResult = this.api.getResult();
   }
 
   requestNewProject(button) {
     console.log('New project request yey');
     this.newProjectRequest = true;
     document.getElementById('newProjectButton').style.display = 'none';
+    document.getElementById('projectTable').style.display = 'none';
   }
 
   createProject(form: NgForm) {

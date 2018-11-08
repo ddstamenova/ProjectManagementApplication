@@ -3,6 +3,35 @@
 </div>
 
 <br/>
+
+<div class="container" style="text-align:center">
+    <button id="loadProjects" type="submit" class="btn btn-success" (click)="loadProjects()">Load my projects</button>
+</div>
+
+<br/>
+<br/>
+<br/>
+
+<h3 style="text-align:center">Your current projects</h3>
+
+<br/>
+
+<table id="projectTable" class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Project Name</th>
+        <th>Project Description</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let project of getResult.Items">
+      <tr>
+        <td>{{project.name.S}}</td>
+        <td>{{project.pdescription.S}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+<br/>
 <div *ngIf="newProjectRequest" class="container" style="text-align:center">
 
   <h3>Creating a new project</h3>

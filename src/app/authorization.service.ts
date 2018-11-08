@@ -42,7 +42,6 @@ export class AuthorizationService {
           observer.complete();
         },
         onFailure: function(err) {
-          console.log('desu');
           console.log(err);
           observer.error(err);
         },
@@ -56,6 +55,7 @@ export class AuthorizationService {
   }
 
   isLoggedIn() {
+    // console.log(userPool.getCurrentUser().username);
     return userPool.getCurrentUser() != null;
   }
 
