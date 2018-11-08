@@ -1,0 +1,22 @@
+<div class="container" style="text-align:center">
+  <button id="newProjectButton" type="submit" class="btn btn-success" (click)="requestNewProject(this)">Create new project</button>
+</div>
+
+<br/>
+<div *ngIf="newProjectRequest" class="container" style="text-align:center">
+
+  <h3>Creating a new project</h3>
+
+  <form (ngSubmit)="createProject()" #codeform="ngForm">
+    <div class="form-group">
+      <label for="pname">Project name</label>
+      <input type="pname" name="pname" id="pname" ngModel class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="pdescription">Project description</label>
+      <input type="pdescription" name="pdescription" id="pdescription" ngModel class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-success">Create</button>
+  </form>
+
+</div>

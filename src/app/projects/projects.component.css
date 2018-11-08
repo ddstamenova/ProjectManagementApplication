@@ -1,0 +1,10 @@
+.container{
+    border-left: 5px solid #42A948; /* green */
+    border-right: 5px solid #42A948; /* green */
+    background-color: whitesmoke  
+}
+
+.form-group{
+    margin-right: 450px;
+    margin-left: 450px;
+}
