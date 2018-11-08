@@ -13,7 +13,7 @@ export class ApiService {
   projUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/createproject';
   getAllProjectsUrl = ' https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/getprojects';
   postResult: any = {};
-
+  projectsLoadedResult: any = {};
 
   constructor(private http: Http, private auth: AuthorizationService) { }
 
@@ -64,7 +64,7 @@ export class ApiService {
     .subscribe(
       response => {
         console.log(response.json());
-        this.postResult = response.json(); // .json();  // а
+        this.projectsLoadedResult = response.json(); // .json();  // а
       },
       error => {
         console.log(error);
@@ -73,7 +73,7 @@ export class ApiService {
   }
 
   getResult() {
-    return this.postResult;
+    return this.projectsLoadedResult;
   }
 
 }
