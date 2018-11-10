@@ -10,7 +10,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {AuthorizationService} from './authorization.service';
 import {ApiService} from './api.service';
 
-import { ApiComponent } from './api/api.component';
 import { RegisterComponent } from './register/register.component';
 import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
@@ -20,7 +19,6 @@ import { ProjectsComponent } from './projects/projects.component';
   declarations: [
     AppComponent,
     LoginComponent,
-    ApiComponent,
     RegisterComponent,
     MenuComponent,
     HomeComponent,
