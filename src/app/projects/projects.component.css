@@ -8,3 +8,9 @@
     margin-right: 450px;
     margin-left: 450px;
 }
+
+.update{
+    border-bottom: 5px solid #42A948; /* green */
+    border-top: 5px solid #42A948; /* green */
+    background-color: white
+}

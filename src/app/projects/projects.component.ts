@@ -13,7 +13,12 @@ export class ProjectsComponent implements OnInit {
   newProjectRequest = false;
   loadProjectRequest = false;
   canCreateProject = false;
+  updateProjectRequest = false;
+
   editProjectRequest = false;
+  assignDevRequest = false;
+  assignPMRequest = false;
+
   payload: any = {};
   getResult: any = [];
   editProjectName = '';
@@ -27,32 +32,74 @@ export class ProjectsComponent implements OnInit {
     if (this.api.isAdmin() === true || this.api.isProjectManager() === true) {
       this.canCreateProject = true;
     }
-
-    console.log(this.canCreateProject);
-    console.log('has rights');
   }
 
-  editProject(projectName: string) {
+  requestEditProject() {
+    this.editProjectRequest = true;
+    this.assignDevRequest = false;
+    this.assignPMRequest = false;
+    document.getElementById('editProject').style.visibility = 'hidden';
+    document.getElementById('assignDev').style.visibility = 'visible';
+    document.getElementById('assignPM').style.visibility = 'visible';
+  }
+
+  requestAssignDev() {
+    this.assignDevRequest = true;
+    this.assignPMRequest = false;
+    this.editProjectRequest = false;
+    document.getElementById('assignDev').style.visibility = 'hidden';
+    document.getElementById('assignPM').style.visibility = 'visible';
+    document.getElementById('editProject').style.visibility = 'visible';
+  }
+
+  requestAssignProjectManager() {
+    this.assignPMRequest = true;
+    this.editProjectRequest = false;
+    this.assignDevRequest = false;
+    document.getElementById('assignPM').style.visibility = 'hidden';
+    document.getElementById('editProject').style.visibility = 'visible';
+    document.getElementById('assignDev').style.visibility = 'visible';
+  }
+
+
+
+
+  requestUpdateProject(projectName: string) {
     if (this.canCreateProject === true) {
       console.log(projectName);
-      this.editProjectRequest = true;
+      this.updateProjectRequest = true;
       this.editProjectName = projectName;
-
-
-
-
-    }
-
+     }
   }
 
-  editProjectApiCall(form: NgForm) {
-    this.payload = { name: this.editProjectName, pdescription: form.value.updescription, pstatus: form.value.upstatus };
-    console.log(this.payload);
-    this.api.updateProjectDetails(this.payload);
+  // Presents a form to create a new project
+  requestNewProject() {
+    this.updateProjectRequest = false;
+    this.newProjectRequest = true;
+    this.loadProjectRequest = false;
+    document.getElementById('newProjectButton').style.visibility = 'hidden';
+  }
+
+  assignDevApiCall(form: NgForm) {
+    this.payload = { name: this.editProjectName, developer: form.value.devemail };
+    this.api.assignDev(this.payload);
+  }
+
+  assignProjectManagerApiCall(form: NgForm) {
+    this.payload = { name: this.editProjectName, projectmanager: form.value.pmemail };
+    this.api.assignProjectManager(this.payload);
+  }
+
+
+
+
+  createProjectApiCall(form: NgForm) {
+    this.payload = { email: form.value.email, name: form.value.name, pdescription: form.value.pdescription};
+    this.api.createProject(this.payload);
   }
 
   // Shows a table with all projects from dynamo that were previously loaded (triggered when user clicks the 'Load projects' button)
-  loadProjects() {
+  loadProjectsApiCall() {
     this.getResult = this.api.getProjectsLoadedResult();
 
     // go through all the projects received and remove those that aren't created by the current user
@@ -67,18 +114,9 @@ export class ProjectsComponent implements OnInit {
     document.getElementById('newProjectButton').style.visibility = 'visible';
   }
 
-  // Presents a form to create a new project
-  requestNewProject() {
-    this.editProjectRequest = false;
-    this.newProjectRequest = true;
-    this.loadProjectRequest = false;
-    document.getElementById('newProjectButton').style.visibility = 'hidden';
-  }
-
-  createProject(form: NgForm) {
-    this.payload = { email: form.value.email, name: form.value.name, pdescription: form.value.pdescription};
-    console.log(this.payload);
-    this.api.createProject(this.payload);
+  editProjectApiCall(form: NgForm) {
+    this.payload = { name: this.editProjectName, pdescription: form.value.updescription, pstatus: form.value.upstatus };
+    this.api.updateProjectDetails(this.payload);
   }
 
   update() {

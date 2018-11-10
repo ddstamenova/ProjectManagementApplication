@@ -5,7 +5,7 @@
 <br/>
 
 <div style="text-align:center">
-    <button id="loadProjects" type="submit" class="btn btn-success" (click)="loadProjects()">Load my projects</button>
+    <button id="loadProjects" type="submit" class="btn btn-success" (click)="loadProjectsApiCall()">Load my projects</button>
 </div>
 
 <br/>
@@ -20,12 +20,14 @@
         <tr>
           <th>Project Name</th>
           <th>Project Description</th>
+          <th>Project Status</th>
         </tr>
       </thead>
       <tbody *ngFor="let project of getResult.Items">
         <tr>
-          <td> <button (click)="editProject(project.name.S)">{{project.name.S}}</button></td>
+          <td> <button (click)="requestUpdateProject(project.name.S)">{{project.name.S}}</button></td>
           <td>{{project.pdescription.S}}</td>
+          <td>{{project.pstatus.S}}</td>
         </tr>
       </tbody>
     </table>
@@ -37,7 +39,7 @@
 
   <h3>Creating a new project</h3>
 
-  <form (ngSubmit)="createProject(codeform)" #codeform="ngForm">
+  <form (ngSubmit)="createProjectApiCall(codeform)" #codeform="ngForm">
       <div class="form-group">
           <label for="email">Owner email</label>
           <input type="email" name="email" id="email" ngModel class="form-control" required>
@@ -56,22 +58,88 @@
 </div>
 
 
-<div *ngIf="editProjectRequest" class="container" style="text-align:center">
+<div *ngIf="updateProjectRequest" class="container" style="text-align:center">
 
-  <h3>Updating {{editProjectName}}</h3>
-  <h4>If you don't want to chnage the value of a field leave it blank</h4>
+  <h3>Updating project "{{editProjectName}}"</h3>
+  <br/>
 
-  <form (ngSubmit)="editProjectApiCall(codeform)" #codeform="ngForm">
-      <div class="form-group">
-        <label for="updescription">Project Description</label>
-        <input type="text" name="updescription" id="updescription" ngModel class="form-control" required>
-      </div>
+  <div style="text-align:center">
+    <button id="editProject" class="btn btn-success" (click)="requestEditProject()">Edit project</button>
+  </div>
 
-      <div class="form-group">
-        <label for="upstatus">Status</label>
-        <input type="text" name="upstatus" id="upstatus" ngModel class="form-control" required>
-      </div>
+  <br/>
+  <div *ngIf="editProjectRequest" class="update">
+    
+    <form (ngSubmit)="editProjectApiCall(codeform)" #codeform="ngForm">
+  
+        <br/>
+        <div class="form-group">
+          <label for="updescription">Project Description</label>
+          <input type="text" name="updescription" id="updescription" ngModel class="form-control" required>
+        </div>
+    
+        <div class="form-group">
+          <label for="upstatus">Status</label>
+          <input type="text" name="upstatus" id="upstatus" ngModel class="form-control" required>
+        </div>
+    
+        <button type="submit" class="btn btn-success" (click)="update()">Update</button>
+      </form>
+      <br/>
+  </div>
+  <br/>
 
-    <button type="submit" class="btn btn-success" (click)="update()">Update</button>
-  </form>
+
+
+  <div style="text-align:center">
+    <button id="assignDev" class="btn btn-success" (click)="requestAssignDev()">Assign a developer</button>
+  </div>
+
+  <br/>
+  <div *ngIf="assignDevRequest" class="update">
+    
+    <form (ngSubmit)="assignDevApiCall(codeform)" #codeform="ngForm">
+        <br/>
+        <div class="form-group">
+          <label for="devemail">Developer Email</label>
+          <input type="text" name="devemail" id="devemail" ngModel class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success" (click)="update()">Assign</button>
+    </form>
+    <br/>
+
+  </div>
+  <br/>
+
+
+
+  <div style="text-align:center">
+    <button id="assignPM" class="btn btn-success" (click)="requestAssignProjectManager()">Assign a project manager</button>
+  </div>
+
+
+
+  <br/>
+  <div *ngIf="assignPMRequest" class="update">
+      <br/>
+      <form (ngSubmit)="assignProjectManagerApiCall(codeform)" #codeform="ngForm">
+          <div class="form-group">
+            <label for="pmemail">Project Manager Email</label>
+            <input type="text" name="pmemail" id="pmemail" ngModel class="form-control" required>
+          </div>
+          <button type="submit" class="btn btn-success" (click)="update()">Assign</button>
+      </form>
+      <br/>
+
+  </div>
+  <br/>
+
+
+  
+
+  
+
+
+
+
 </div>

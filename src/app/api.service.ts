@@ -16,6 +16,8 @@ export class ApiService {
   getUserDetailsUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/getuserdetails';
   assignRoleUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/assignrole';
   updateProjectDetailsUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/updateproject';
+  assignDevUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/assigndev';
+  assignProjectManagerUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/assignprojectmanager';
 
   registrationResult: any = {};
   newProjectResult: any = {};
@@ -24,6 +26,8 @@ export class ApiService {
   userDetailsResult: any = {};
   userRoleUpdatedResult: any = {};
   updateProjectDetailsResult: any = {};
+  assignDevResult: any = {};
+  assignProjectManagerResult: any = {};
 
   isAdminCheck = false;
   isProjectManagerCheck = false;
@@ -109,7 +113,6 @@ export class ApiService {
       response => {
         console.log(response.json());
         this.updateProjectDetailsResult = response.json(); // .json();  // а
-        this.setCurrentUserRole(this.userDetailsResult.Item.userrole.S);
       },
       error => {
         console.log(error);
@@ -205,6 +208,44 @@ export class ApiService {
       response => {
         console.log(response);
         this.userRoleUpdatedResult = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+  }
+
+  assignDev(payload) {
+
+    const headers = new Headers();
+    headers.set('content-type', 'application-json');
+
+
+    this.http.post(this.assignDevUrl, payload, { headers: headers })
+    .subscribe(
+      response => {
+        console.log(response);
+        this.assignDevResult = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+  }
+
+  assignProjectManager(payload) {
+
+    const headers = new Headers();
+    headers.set('content-type', 'application-json');
+
+
+    this.http.post(this.assignProjectManagerUrl, payload, { headers: headers })
+    .subscribe(
+      response => {
+        console.log(response);
+        this.assignProjectManagerResult = response;
       },
       error => {
         console.log(error);
