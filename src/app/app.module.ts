@@ -14,6 +14,7 @@ import { RegisterComponent } from './register/register.component';
 import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ProjectsComponent } from './projects/projects.component';
     RegisterComponent,
     MenuComponent,
     HomeComponent,
-    ProjectsComponent
+    ProjectsComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
