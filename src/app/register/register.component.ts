@@ -26,7 +26,7 @@ export class RegisterComponent {
     this.auth.register(email, password).subscribe(
       (data) => {
         this.confirmCode = true;
-        this.payload = {userId: '1', fname: form.value.firstname, lname: form.value.lastname, email: form.value.email};
+        this.payload = {fname: form.value.firstname, lname: form.value.lastname, email: form.value.email};
       },
       (err) => {
         console.log(err);
@@ -41,7 +41,6 @@ export class RegisterComponent {
     this.auth.confirmAuthCode(code).subscribe(
       (data) => {
         // call api function
-        console.log(this.payload);
         this.api.register(this.payload);                 // api function
         this._router.navigateByUrl('');
         this.codeWasConfirmed = true;

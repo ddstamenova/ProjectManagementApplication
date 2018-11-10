@@ -9,11 +9,21 @@ import {Http, Headers} from '@angular/http';
 
 export class ApiService {
 
-  regUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/register';
-  projUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/createproject';
+  registrationUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/register';
+  projectUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/createproject';
   getAllProjectsUrl = ' https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/getprojects';
-  postResult: any = {};
+  updateUserDetailsUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/updateuserdetails';
+  getUserDetailsUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/getuserdetails';
+  assignRoleUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/assignrole';
+
+  registrationResult: any = {};
+  newProjectResult: any = {};
   projectsLoadedResult: any = {};
+  updateUserDetailsResult: any = {};
+  userDetailsResult: any = {};
+  userRoleUpdatedResult: any = {};
+
+  isAdminCheck = false;
 
   constructor(private http: Http, private auth: AuthorizationService) { }
 
@@ -23,11 +33,11 @@ export class ApiService {
     headers.set('content-type', 'application-json'); // а
 
 
-    this.http.post(this.regUrl, payload, { headers: headers })  // а
+    this.http.post(this.registrationUrl, payload, { headers: headers })  // а
       .subscribe(
       response => {
         console.log(response);
-        this.postResult = response; // .json();  // а
+        this.registrationResult = response; // .json();  // а
       },
       error => {
         console.log(error);
@@ -36,17 +46,25 @@ export class ApiService {
 
   }
 
+  setCurrentUserEmail(email) {
+    localStorage.setItem( 'email', email);
+  }
+
+  getCurrentUserEmail() {
+    return localStorage.getItem('email');
+  }
+
   createProject(payload) {
 
     const headers = new Headers();
     headers.set('content-type', 'application-json'); // а
 
 
-    this.http.post(this.projUrl, payload, { headers: headers })  // а
+    this.http.post(this.projectUrl, payload, { headers: headers })  // а
     .subscribe(
       response => {
         console.log(response);
-        this.postResult = response; // .json();  // а
+        this.newProjectResult = response; // .json();  // а
       },
       error => {
         console.log(error);
@@ -74,6 +92,85 @@ export class ApiService {
 
   getResult() {
     return this.projectsLoadedResult;
+  }
+
+  getCurrentUserDetails() {
+    const headers = new Headers();
+    headers.set('content-type', 'application-json'); // а
+
+    const payload = { email: this.getCurrentUserEmail()};
+
+    this.http.post(this.getUserDetailsUrl, payload, { headers: headers })  // а
+    .subscribe(
+      response => {
+        console.log(response.json());
+        this.userDetailsResult = response.json(); // .json();  // а
+        this.setCurrentUserRole(this.userDetailsResult.Item.role.S);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  setCurrentUserRole(role) {
+    localStorage.setItem( 'role', role);
+  }
+
+  getCurrentUserRole() {
+    this.isAdminCheck = false;
+    if (localStorage.getItem('role') === 'admin') {
+      this.isAdminCheck = true;
+    }
+    return this.isAdminCheck;
+  }
+
+  // isAdmin() {
+  //   console.log(this.userDetailsResult.Item.role.S);
+  //   const role = this.userDetailsResult.Item.role.S;
+  //   console.log(role);
+  // }
+
+  getUserDetailsResult() {
+    return this.userDetailsResult;
+  }
+
+
+  updateUserDetails(payload) {
+
+    const headers = new Headers();
+    headers.set('content-type', 'application-json');
+
+
+    this.http.post(this.updateUserDetailsUrl, payload, { headers: headers })
+    .subscribe(
+      response => {
+        console.log(response);
+        this.updateUserDetailsResult = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  assignRole(payload) {
+
+    const headers = new Headers();
+    headers.set('content-type', 'application-json');
+
+
+    this.http.post(this.assignRoleUrl, payload, { headers: headers })
+    .subscribe(
+      response => {
+        console.log(response);
+        this.userRoleUpdatedResult = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
   }
 
 }

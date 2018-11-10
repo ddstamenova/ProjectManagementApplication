@@ -55,7 +55,7 @@ export class AuthorizationService {
   }
 
   isLoggedIn() {
-    // console.log(userPool.getCurrentUser().username);
+    // console.log(userPool.getCurrentUser().);
     return userPool.getCurrentUser() != null;
   }
 

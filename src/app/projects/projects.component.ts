@@ -44,4 +44,8 @@ export class ProjectsComponent implements OnInit {
     this.api.createProject(this.payload);
   }
 
+  update() {
+    window.location.reload();
+  }
+
 }
