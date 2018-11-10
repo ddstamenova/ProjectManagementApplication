@@ -1,4 +1,4 @@
-<div style="text-align:center">
+<div *ngIf="canCreateProject" style="text-align:center">
   <button id="newProjectButton" type="submit" class="btn btn-success" (click)="requestNewProject()">Create new project</button>
 </div>
 
@@ -24,7 +24,7 @@
       </thead>
       <tbody *ngFor="let project of getResult.Items">
         <tr>
-          <td>{{project.name.S}}</td>
+          <td> <button (click)="editProject(project.name.S)">{{project.name.S}}</button></td>
           <td>{{project.pdescription.S}}</td>
         </tr>
       </tbody>
@@ -53,4 +53,25 @@
     <button type="submit" class="btn btn-success" (click)="update()">Create</button>
   </form>
 
+</div>
+
+
+<div *ngIf="editProjectRequest" class="container" style="text-align:center">
+
+  <h3>Updating {{editProjectName}}</h3>
+  <h4>If you don't want to chnage the value of a field leave it blank</h4>
+
+  <form (ngSubmit)="editProjectApiCall(codeform)" #codeform="ngForm">
+      <div class="form-group">
+        <label for="updescription">Project Description</label>
+        <input type="text" name="updescription" id="updescription" ngModel class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="upstatus">Status</label>
+        <input type="text" name="upstatus" id="upstatus" ngModel class="form-control" required>
+      </div>
+
+    <button type="submit" class="btn btn-success" (click)="update()">Update</button>
+  </form>
 </div>

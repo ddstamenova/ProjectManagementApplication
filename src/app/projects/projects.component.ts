@@ -12,19 +12,56 @@ export class ProjectsComponent implements OnInit {
 
   newProjectRequest = false;
   loadProjectRequest = false;
+  canCreateProject = false;
+  editProjectRequest = false;
   payload: any = {};
   getResult: any = [];
+  editProjectName = '';
 
   constructor(private api: ApiService) { }
 
   // preload all projects from dynamo upon visiting the projects page
   ngOnInit() {
-    this.api.getExistingProjectsOfCurrentUser();
+    this.api.getAllProjects();
+
+    if (this.api.isAdmin() === true || this.api.isProjectManager() === true) {
+      this.canCreateProject = true;
+    }
+
+    console.log(this.canCreateProject);
+    console.log('has rights');
+  }
+
+  editProject(projectName: string) {
+    if (this.canCreateProject === true) {
+      console.log(projectName);
+      this.editProjectRequest = true;
+      this.editProjectName = projectName;
+
+
+
+
+    }
+
+  }
+
+  editProjectApiCall(form: NgForm) {
+    this.payload = { name: this.editProjectName, pdescription: form.value.updescription, pstatus: form.value.upstatus };
+    console.log(this.payload);
+    this.api.updateProjectDetails(this.payload);
   }
 
   // Shows a table with all projects from dynamo that were previously loaded (triggered when user clicks the 'Load projects' button)
   loadProjects() {
-    this.getResult = this.api.getResult();
+    this.getResult = this.api.getProjectsLoadedResult();
+
+    // go through all the projects received and remove those that aren't created by the current user
+    for (let i = this.getResult.Items.length - 1; i >= 0; i --) {
+      if (this.getResult.Items[i].email.S !==  this.api.getCurrentUserEmail()) {
+          this.getResult.Items.splice(i, 1);
+      }
+    }
+
     this.newProjectRequest = false;
     this.loadProjectRequest = true;
     document.getElementById('newProjectButton').style.visibility = 'visible';
@@ -32,7 +69,7 @@ export class ProjectsComponent implements OnInit {
 
   // Presents a form to create a new project
   requestNewProject() {
-    console.log('New project request yey');
+    this.editProjectRequest = false;
     this.newProjectRequest = true;
     this.loadProjectRequest = false;
     document.getElementById('newProjectButton').style.visibility = 'hidden';

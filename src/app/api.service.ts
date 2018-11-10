@@ -11,10 +11,11 @@ export class ApiService {
 
   registrationUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/register';
   projectUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/createproject';
-  getAllProjectsUrl = ' https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/getprojects';
+  getProjectsUrl = ' https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/getprojects';
   updateUserDetailsUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/updateuserdetails';
   getUserDetailsUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/getuserdetails';
   assignRoleUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/assignrole';
+  updateProjectDetailsUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/updateproject';
 
   registrationResult: any = {};
   newProjectResult: any = {};
@@ -22,8 +23,11 @@ export class ApiService {
   updateUserDetailsResult: any = {};
   userDetailsResult: any = {};
   userRoleUpdatedResult: any = {};
+  updateProjectDetailsResult: any = {};
 
   isAdminCheck = false;
+  isProjectManagerCheck = false;
+  isDevCheck = false;
 
   constructor(private http: Http, private auth: AuthorizationService) { }
 
@@ -72,13 +76,13 @@ export class ApiService {
     );
   }
 
-  getExistingProjectsOfCurrentUser() {
+  getAllProjects() {
 
     const headers = new Headers();
     headers.set('content-type', 'application-json'); // а
 
 
-    this.http.get(this.getAllProjectsUrl, { headers: headers })  // а
+    this.http.get(this.getProjectsUrl, { headers: headers })  // а
     .subscribe(
       response => {
         console.log(response.json());
@@ -90,8 +94,27 @@ export class ApiService {
     );
   }
 
-  getResult() {
+  getProjectsLoadedResult() {
     return this.projectsLoadedResult;
+  }
+
+
+
+  updateProjectDetails(payload) {
+    const headers = new Headers();
+    headers.set('content-type', 'application-json');
+
+    this.http.post(this.updateProjectDetailsUrl, payload, { headers: headers })  // а
+    .subscribe(
+      response => {
+        console.log(response.json());
+        this.updateProjectDetailsResult = response.json(); // .json();  // а
+        this.setCurrentUserRole(this.userDetailsResult.Item.userrole.S);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   getCurrentUserDetails() {
@@ -105,7 +128,7 @@ export class ApiService {
       response => {
         console.log(response.json());
         this.userDetailsResult = response.json(); // .json();  // а
-        this.setCurrentUserRole(this.userDetailsResult.Item.role.S);
+        this.setCurrentUserRole(this.userDetailsResult.Item.userrole.S);
       },
       error => {
         console.log(error);
@@ -113,16 +136,33 @@ export class ApiService {
     );
   }
 
+
   setCurrentUserRole(role) {
     localStorage.setItem( 'role', role);
   }
 
-  getCurrentUserRole() {
+  isAdmin() {
     this.isAdminCheck = false;
     if (localStorage.getItem('role') === 'admin') {
       this.isAdminCheck = true;
     }
     return this.isAdminCheck;
+  }
+
+  isProjectManager() {
+    this.isProjectManagerCheck = false;
+    if (localStorage.getItem('role') === 'projectmanager') {
+      this.isProjectManagerCheck = true;
+    }
+    return this.isProjectManagerCheck;
+  }
+
+  isDev() {
+    this.isDevCheck = false;
+    if (localStorage.getItem('role') === 'dev') {
+      this.isDevCheck = true;
+    }
+    return this.isDevCheck;
   }
 
   // isAdmin() {

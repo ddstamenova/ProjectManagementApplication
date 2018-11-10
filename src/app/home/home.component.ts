@@ -22,8 +22,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.api.getCurrentUserDetails();
-    console.log(this.api.getCurrentUserRole());
-    this.isAdmin = this.api.getCurrentUserRole();
+    console.log(this.api.isAdmin());
+    this.isAdmin = this.api.isAdmin();
   }
 
   // press button to assing a role to another user
