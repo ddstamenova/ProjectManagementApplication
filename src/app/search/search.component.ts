@@ -134,6 +134,7 @@ export class SearchComponent implements OnInit {
     this.seeProjectResultsRequest = true;
   }
 
+  // check whether user wants to see active or complete projects or both types
   searchProjects(form: NgForm) {
     this.searchActiveStatusRequest = false;
     this.searchCompleteStatusRequest = false;

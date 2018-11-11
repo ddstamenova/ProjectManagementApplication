@@ -18,11 +18,13 @@ export class RegisterComponent {
   error = '';
   payload: any = {};
 
-  constructor(private auth: AuthorizationService, private _router: Router, private api: ApiService) { }
+  constructor(private auth: AuthorizationService, private router: Router, private api: ApiService) { }
 
   register(form: NgForm) {
+
     const email = form.value.email;
     const password = form.value.password;
+
     this.auth.register(email, password).subscribe(
       (data) => {
         this.confirmCode = true;
@@ -42,7 +44,7 @@ export class RegisterComponent {
       (data) => {
         // call api function
         this.api.register(this.payload);                 // api function
-        this._router.navigateByUrl('');
+        this.router.navigateByUrl('');
         this.codeWasConfirmed = true;
         this.confirmCode = false;
       },

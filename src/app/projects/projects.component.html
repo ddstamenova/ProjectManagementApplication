@@ -13,7 +13,8 @@
 <br/>
 
 <div *ngIf="loadProjectRequest">
-  <h3 style="text-align:center">Your current projects</h3>
+  <h3 style="text-align:center"><b>Your current projects</b></h3>
+  <h3 style="text-align:center"><i>*Click on project name to edit project*</i></h3>
   <br/>
   <table id="projectTable" class="table table-bordered">
       <thead>
@@ -27,7 +28,7 @@
       </thead>
       <tbody *ngFor="let project of getResult.Items">
         <tr>
-          <td> <button (click)="requestUpdateProject(project.name.S)">{{project.name.S}}</button></td>
+          <td> <button class="btn btn-success" (click)="requestUpdateProject(project.name.S)">{{project.name.S}}</button></td>
           <td>{{project.pdescription.S}}</td>
           <td>{{project.pstatus.S}}</td>
           <td>{{project.developers.SS}}</td>
@@ -50,11 +51,11 @@
         </div>
     <div class="form-group">
       <label for="name">Project name</label>
-      <input type="name" name="name" id="name" ngModel class="form-control" required>
+      <input type="text" name="name" id="name" ngModel class="form-control" required>
     </div>
     <div class="form-group">
       <label for="pdescription">Project description</label>
-      <input type="pdescription" name="pdescription" id="pdescription" ngModel class="form-control" required>
+      <input type="text" name="pdescription" id="pdescription" ngModel class="form-control" required>
     </div>
     <button type="submit" class="btn btn-success" (click)="update()">Create</button>
   </form>
@@ -83,11 +84,12 @@
         </div>
     
         <div class="form-group">
+          <h4><b>Project status can be either 'active' or 'complete'</b></h4>
           <label for="upstatus">Status</label>
           <input type="text" name="upstatus" id="upstatus" ngModel class="form-control" required>
         </div>
     
-        <button type="submit" class="btn btn-success" (click)="update()">Update</button>
+        <button type="submit" class="btn btn-success" (click)="update()" [disabled]="!codeform.form.valid">Update</button>
       </form>
       <br/>
   </div>

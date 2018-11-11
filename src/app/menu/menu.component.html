@@ -1,13 +1,12 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
       <ul class="nav navbar-nav">
-        <!-- <li routerLinkActive="active"><a *ngIf="_auth.isLoggedIn()" routerLink="/api">test</a></li> TO DO: broken rn -->
-        <li routerLinkActive="active"><a *ngIf="_auth.isLoggedIn()" routerLink="/home">Home</a></li>
-        <li routerLinkActive="active"><a *ngIf="_auth.isLoggedIn()" routerLink="/projects">My Projects</a></li>
-        <li routerLinkActive="active"><a *ngIf="_auth.isLoggedIn()" routerLink="/search">Search</a></li>
-        <li routerLinkActive="active"><a *ngIf="!_auth.isLoggedIn()" routerLink="/register">Register</a></li>
-        <li  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a *ngIf="!_auth.isLoggedIn()" routerLink="">Login</a></li>      
-        <li><a *ngIf="_auth.isLoggedIn()" href="javascript:void(0)" (click)="doLogout()">Logout</a></li>
+        <li routerLinkActive="active"><a *ngIf="auth.isLoggedIn()" routerLink="/home">Home</a></li>
+        <li routerLinkActive="active"><a *ngIf="auth.isLoggedIn()" routerLink="/projects">My Projects</a></li>
+        <li routerLinkActive="active"><a *ngIf="auth.isLoggedIn()" routerLink="/search">Search</a></li>
+        <li routerLinkActive="active"><a *ngIf="!auth.isLoggedIn()" routerLink="/register">Register</a></li>
+        <li  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a *ngIf="!auth.isLoggedIn()" routerLink="">Login</a></li>      
+        <li><a *ngIf="auth.isLoggedIn()" href="javascript:void(0)" (click)="doLogout()">Logout</a></li>
       </ul>
     </div>
   </nav>

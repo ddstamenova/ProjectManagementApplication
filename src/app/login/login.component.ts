@@ -30,7 +30,7 @@ export class LoginComponent {
       this.emailVerificationMessage = true;
     });
 
-    // test- wrong
+    // test - not
     this.submitted = true;
 
     this.api.getCurrentUserDetails();

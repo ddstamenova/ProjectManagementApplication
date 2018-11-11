@@ -61,9 +61,6 @@ export class ProjectsComponent implements OnInit {
     document.getElementById('assignDev').style.visibility = 'visible';
   }
 
-
-
-
   requestUpdateProject(projectName: string) {
     if (this.canCreateProject === true) {
       console.log(projectName);
@@ -90,9 +87,6 @@ export class ProjectsComponent implements OnInit {
     this.api.assignProjectManager(this.payload);
   }
 
-
-
-
   createProjectApiCall(form: NgForm) {
     this.payload = { email: form.value.email, name: form.value.name, pdescription: form.value.pdescription};
     this.api.createProject(this.payload);
@@ -102,18 +96,34 @@ export class ProjectsComponent implements OnInit {
   loadProjectsApiCall() {
     this.getResult = this.api.getProjectsLoadedResult();
 
+
     // go through all the projects received and remove those that aren't created by the current user
     for (let i = this.getResult.Items.length - 1; i >= 0; i --) {
       if (this.getResult.Items[i].email.S !==  this.api.getCurrentUserEmail()) {
           this.getResult.Items.splice(i, 1);
       }
 
-      if (typeof this.getResult.Items[i].developers ===  'undefined') {
-        this.getResult.Items[i].developers = {SS: ['none']};
+    }
+
+    let noProjects = false;
+    // check if there are any projects left associated with this user
+    if (this.getResult.Items.length === 0) {
+      noProjects = true;
+    }
+
+    // if there are no projects don't go into changing developer/project manager field
+    if (!noProjects) {
+
+      for (let i = this.getResult.Items.length - 1; i >= 0; i --) {
+        if (typeof this.getResult.Items[i].developers ===  'undefined') {
+          this.getResult.Items[i].developers = {SS: ['none']};
+        }
       }
 
-      if (typeof this.getResult.Items[i].projectmanagers ===  'undefined') {
-        this.getResult.Items[i].projectmanagers = {SS: ['none']};
+      for (let i = this.getResult.Items.length - 1; i >= 0; i --) {
+        if (typeof this.getResult.Items[i].projectmanagers ===  'undefined') {
+          this.getResult.Items[i].projectmanagers = {SS: ['none']};
+        }
       }
     }
 
@@ -127,6 +137,7 @@ export class ProjectsComponent implements OnInit {
     this.api.updateProjectDetails(this.payload);
   }
 
+  // refresh page
   update() {
     window.location.reload();
   }

@@ -16,12 +16,15 @@ export class HomeComponent implements OnInit {
 
   payload: any = {};
   results: any = {};
+  userListResult: any = {};
   isAdmin = false;
 
   constructor(private api: ApiService) { }
 
+  // load first 10 users + current user's details
   ngOnInit() {
     this.api.getCurrentUserDetails();
+    this.api.getAllUsers();
     console.log(this.api.isAdmin());
     this.isAdmin = this.api.isAdmin();
   }
@@ -33,7 +36,10 @@ export class HomeComponent implements OnInit {
     this.viewDetails = false;
   }
 
+  // button trigger
   userListRequest() {
+    this.userListResult = this.api.getAllUsersResult();
+    console.log(this.userListResult);
     this.userList = true;
     this.editDetails = false;
     this.viewDetails = false;
@@ -50,28 +56,28 @@ export class HomeComponent implements OnInit {
 
   // press button edit details
   editDetailsRequest() {
+    this.results = this.api.getUserDetailsResult();
+    console.log(this.results);
     this.assignRole = false;
     this.editDetails = true;
-    this.viewDetails = false;
     this.userList = false;
   }
 
+  // refresh window
   update() {
     window.location.reload();
   }
 
+  // updating user details
   updateUserDetailsRequest(form: NgForm) {
-    // const a = this.api.getCurrentUserEmail();
-    // console.log(a);
     this.payload = { fname: form.value.fname, lname: form.value.lname, email: this.api.getCurrentUserEmail(),
-      udescription: form.value.udescription, skills: form.value.skills, role: ' '};
-    console.log(this.payload);
+      udescription: form.value.udescription, skills: form.value.skills, userrole: 'none'};
     this.api.updateUserDetails(this.payload);
   }
 
+  // *only for admin* assign role to an existing user
   assignRoleApiRequest(form: NgForm) {
     this.payload = { email: form.value.assigneduser, role: form.value.role};
-    console.log(this.payload);
     this.api.assignRole(this.payload);
   }
 

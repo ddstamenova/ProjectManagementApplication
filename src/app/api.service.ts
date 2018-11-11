@@ -20,6 +20,7 @@ export class ApiService {
   assignProjectManagerUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/assignprojectmanager';
   searchUserUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/getuserdetails';
   searchProjectUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/getprojectdetails';
+  getAllUsersUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/getusers ';
 
   registrationResult: any = {};
   newProjectResult: any = {};
@@ -32,6 +33,7 @@ export class ApiService {
   assignProjectManagerResult: any = {};
   searchUserResult: any = {};
   searchProjectResult: any = {};
+  userListResult: any = {};
 
   isAdminCheck = false;
   isProjectManagerCheck = false;
@@ -39,6 +41,7 @@ export class ApiService {
 
   constructor(private http: Http, private auth: AuthorizationService) { }
 
+  // register user
   register(payload) {
 
     const headers = new Headers();
@@ -83,6 +86,29 @@ export class ApiService {
       }
     );
   }
+
+  getAllUsers() {
+
+    const headers = new Headers();
+    headers.set('content-type', 'application-json'); // а
+
+
+    this.http.get(this.getAllUsersUrl, { headers: headers })  // а
+    .subscribe(
+      response => {
+        // console.log(response.json());
+        this.userListResult = response.json(); // .json();  // а
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getAllUsersResult () {
+    return this.userListResult;
+  }
+
 
   getAllProjects() {
 

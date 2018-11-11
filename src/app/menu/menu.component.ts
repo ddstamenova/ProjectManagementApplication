@@ -9,10 +9,10 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent {
 
-  constructor(private _auth: AuthorizationService, private _router: Router) { }
+  constructor(public auth: AuthorizationService, private router: Router) { }
 
   doLogout() {
-    this._auth.logOut();
-    this._router.navigateByUrl('');
+    this.auth.logOut();
+    this.router.navigateByUrl('');
   }
 }

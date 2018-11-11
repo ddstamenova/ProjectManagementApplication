@@ -20,21 +20,16 @@
 <div *ngIf="editDetails" class="container" style="text-align:center">
 
         <h3>Updateing details</h3>
-        <h4>If you don't want to chnage the value of a field leave it blank</h4>
       
         <form (ngSubmit)="updateUserDetailsRequest(codeform)" #codeform="ngForm">
             <div class="form-group">
                 <label for="fname">First Name</label>
-                <input type="fname" name="fname" id="fname" ngModel class="form-control" required>
+                <input type="text" name="fname" id="fname" ngModel class="form-control" required>
             </div>
             <div class="form-group">
                     <label for="lname">Last Name</label>
-                    <input type="lname" name="lname" id="lname" ngModel class="form-control" required>
+                    <input type="text" name="lname" id="lname" ngModel class="form-control" required>
                 </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" ngModel class="form-control" required>
-            </div>
             <div class="form-group">
                 <label for="udescription">Description</label>
                 <input type="text" name="udescription" id="udescription" ngModel class="form-control" required>
@@ -43,7 +38,7 @@
                 <label for="skills">Skills</label>
                 <input type="text" name="skills" id="skills" ngModel class="form-control" required>
             </div>
-          <button type="submit" class="btn btn-success" (click)="update()">Update</button>
+          <button type="submit" class="btn btn-success" [disabled]="!codeform.form.valid" (click)="update()">Update</button>
         </form>
 </div>
 
@@ -51,7 +46,7 @@
 
 <div *ngIf="isAdmin" style="text-align:center">
     <div style="text-align:center">
-        <h2>This is admin area</h2>
+        <h2><b>This is admin area</b></h2>
     </div>
 
     <div style="text-align:center">
@@ -59,15 +54,12 @@
     </div>
 
     <br/>
-
-    <!-- <div style="text-align:center">
-        <button type="submit" class="btn btn-success" (click)="userListRequest()">See a list of all users</button>
-    </div> -->
-
+    <div style="text-align:center">
+        <button type="submit" class="btn btn-success" (click)="userListRequest()">See list of all users</button>
+    </div>
     <br/>
 
     <div *ngIf="assignRole" style="text-align:center" class="container">
-
         <form (ngSubmit)="assignRoleApiRequest(codeform)" #codeform="ngForm">
             <br/>
             <div class="form-group">
@@ -78,14 +70,36 @@
                 <h3>Pick role: dev or projectmanager</h3><br/>
                 <input type="text" name="role" id="role" ngModel class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-success">Assign</button>
+            <button type="submit" class="btn btn-success" (click)="update()">Assign</button>
         </form> 
-
-
-
-
     </div>
-    <!-- <div *ngIf="userList" style="text-align:center">
-        <h2>List</h2>
-    </div> -->
+
+    
+    <div *ngIf="userList" style="text-align:center">
+        <h3 style="text-align:center"><b>List of all users</b></h3>
+        <br/>
+        <table id="userTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Description</th>
+                    <th>Skills</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let user of userListResult.Items">
+                <tr>
+                    <td>{{user.fname.S}}</td>
+                    <td>{{user.lname.S}}</td>
+                    <td>{{user.email.S}}</td>
+                    <td>{{user.description.S}}</td>
+                    <td>{{user.skills.S}}</td>
+                    <td>{{user.userrole.S}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
 </div>
