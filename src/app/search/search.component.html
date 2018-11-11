@@ -1,3 +1,192 @@
-<p>
-  search works!
-</p>
+<div style="text-align:center">
+  <button type="submit" class="btn btn-success" (click)="requestSearchUsers()">Search users</button>
+</div>
+
+<br/>
+<div *ngIf="searchUserRequest" class="container" style="text-align:center">
+  
+  <form (ngSubmit)="searchUserApiCall(codeform)" #codeform="ngForm"> 
+
+      <div class="form-group">
+        <br/>
+        <label for="uemail">User Email</label>
+        <input type="text" name="uemail" id="uemail" ngModel class="form-control" required>
+      </div>
+  
+      <button type="submit" class="btn btn-success">Find</button>
+
+    </form>
+    <br/>
+</div>
+
+
+<div *ngIf="viewSearchUserResultRequest" class="container" style="text-align:center">
+  
+  <div style="text-align:center">
+    <br/>
+    <button type="submit" class="btn btn-success" (click)="showSearchedUserResult()">See results</button>
+  </div>
+
+  <br/>
+</div>
+
+<div *ngIf="seeUserResultsRequest" >
+      <div class="form-group">
+        <br/>
+        <table id="projectTable" class="table table-bordered">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Description</th>
+              <th>Skills</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{searchUserResult.fname.S}}</td>
+              <td>{{searchUserResult.lname.S}}</td>
+              <td>{{searchUserResult.email.S}}</td>
+              <td>{{searchUserResult.description.S}}</td>
+              <td>{{searchUserResult.skills.S}}</td>
+              <td>{{searchUserResult.userrole.S}}</td>
+            </tr>
+          </tbody>
+        </table>
+      
+      </div>
+    <br/>
+</div>
+
+<br/>
+<div style="text-align:center">
+  <button type="submit" class="btn btn-success" (click)="requestSearchProject()">Search projects</button>
+</div>
+
+<br/>
+<div *ngIf="searchProjectRequest" class="container" style="text-align:center">
+  
+  <form (ngSubmit)="searchProjectApiCall(codeform)" #codeform="ngForm"> 
+
+      <div class="form-group">
+        <br/>
+        <label for="pname">Project Name</label>
+        <input type="text" name="pname" id="pname" ngModel class="form-control" required>
+      </div>
+  
+      <button type="submit" class="btn btn-success">Find</button>
+
+    </form>
+    <br/>
+</div>
+<br/>
+
+
+
+<div *ngIf="viewSearchProjectResultRequest" class="container" style="text-align:center">
+  
+  <div style="text-align:center">
+    <br/>
+    <button type="submit" class="btn btn-success" (click)="showSearchedProjectResult()">See results</button>
+  </div>
+
+  <br/>
+</div>
+
+<div *ngIf="seeProjectResultsRequest" >
+      <div class="form-group">
+        <br/>
+        <table id="projectTable" class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Creator</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>Developers</th>
+              <th>Project Managers</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{searchProjectResult.name.S}}</td>
+              <td>{{searchProjectResult.email.S}}</td>
+              <td>{{searchProjectResult.pdescription.S}}</td>
+              <td>{{searchProjectResult.pstatus.S}}</td>
+              <td>{{searchProjectResult.developers.SS}}</td>
+              <td>{{searchProjectResult.projectmanagers.SS}}</td>
+            </tr>
+          </tbody>
+        </table>
+      
+      </div>
+    <br/>
+</div>
+
+
+
+
+<div style="text-align:center">
+  <button type="submit" class="btn btn-success" (click)="requestSearchStatus()">View all projects based on status</button>
+</div>
+
+<br/>
+<div *ngIf="searchStatusRequest" class="container" style="text-align:center">
+  
+  <form (ngSubmit)="searchProjects(codeform)" #codeform="ngForm"> 
+    <br/>
+    <input type="checkbox" name="active" value="active" [(ngModel)]="isActive"> Show active projects<br>
+    <input type="checkbox" name="complete" value="complete" [(ngModel)]="isComplete"> Show completed projects<br>
+      
+    <button type="submit" class="btn btn-success">Find</button>
+
+    </form>
+    <br/>
+</div>
+<br/>
+
+
+
+<div *ngIf="searchActiveStatusRequest">
+    <h3 style="text-align:center">Active</h3>
+    <br/>
+    <table id="projectTable" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Project Name</th>
+            <th>Project Description</th>
+            <th>Project Status</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let project of activeProjects">
+          <tr>
+            <td>{{project.name.S}}</td>
+            <td>{{project.pdescription.S}}</td>
+            <td>{{project.pstatus.S}}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+
+  <div *ngIf="searchCompleteStatusRequest">
+      <h3 style="text-align:center">Complete</h3>
+      <br/>
+      <table id="projectTable" class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Project Name</th>
+              <th>Project Description</th>
+              <th>Project Status</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let project of completedProjects">
+            <tr>
+              <td>{{project.name.S}}</td>
+              <td>{{project.pdescription.S}}</td>
+              <td>{{project.pstatus.S}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>

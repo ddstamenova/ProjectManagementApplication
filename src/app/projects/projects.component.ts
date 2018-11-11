@@ -107,6 +107,14 @@ export class ProjectsComponent implements OnInit {
       if (this.getResult.Items[i].email.S !==  this.api.getCurrentUserEmail()) {
           this.getResult.Items.splice(i, 1);
       }
+
+      if (typeof this.getResult.Items[i].developers ===  'undefined') {
+        this.getResult.Items[i].developers = {SS: ['none']};
+      }
+
+      if (typeof this.getResult.Items[i].projectmanagers ===  'undefined') {
+        this.getResult.Items[i].projectmanagers = {SS: ['none']};
+      }
     }
 
     this.newProjectRequest = false;

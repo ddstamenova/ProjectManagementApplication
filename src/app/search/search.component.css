@@ -1,0 +1,20 @@
+.container{
+    border-left: 5px solid #42A948; /* green */
+    border-right: 5px solid #42A948; /* green */
+    background-color: whitesmoke  
+}
+
+.form-group{
+    margin-right: 450px;
+    margin-left: 450px;
+}
+
+.update{
+    border-bottom: 5px solid #42A948; /* green */
+    border-top: 5px solid #42A948; /* green */
+    background-color: white
+}
+
+.mat-radio-button ~ .mat-radio-button {
+    padding-right: 16px;
+  }

@@ -18,6 +18,8 @@ export class ApiService {
   updateProjectDetailsUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/updateproject';
   assignDevUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/assigndev';
   assignProjectManagerUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/assignprojectmanager';
+  searchUserUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/getuserdetails';
+  searchProjectUrl = 'https://68xfcvl1xd.execute-api.eu-west-2.amazonaws.com/prod/getprojectdetails';
 
   registrationResult: any = {};
   newProjectResult: any = {};
@@ -28,6 +30,8 @@ export class ApiService {
   updateProjectDetailsResult: any = {};
   assignDevResult: any = {};
   assignProjectManagerResult: any = {};
+  searchUserResult: any = {};
+  searchProjectResult: any = {};
 
   isAdminCheck = false;
   isProjectManagerCheck = false;
@@ -89,7 +93,7 @@ export class ApiService {
     this.http.get(this.getProjectsUrl, { headers: headers })  // а
     .subscribe(
       response => {
-        console.log(response.json());
+        // console.log(response.json());
         this.projectsLoadedResult = response.json(); // .json();  // а
       },
       error => {
@@ -252,6 +256,50 @@ export class ApiService {
       }
     );
 
+  }
+
+  searchUser(payload) {
+
+    const headers = new Headers();
+    headers.set('content-type', 'application-json');
+
+
+    this.http.post(this.searchUserUrl, payload, { headers: headers })
+    .subscribe(
+      response => {
+        console.log(response);
+        this.searchUserResult = response.json();
+
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getSearchedUser() {
+    return this.searchUserResult.Item;
+  }
+
+  searchProject(payload) {
+
+    const headers = new Headers();
+    headers.set('content-type', 'application-json');
+
+    this.http.post(this.searchProjectUrl, payload, { headers: headers })
+    .subscribe(
+      response => {
+        console.log(response);
+        this.searchProjectResult = response.json();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getSearchedProject() {
+    return this.searchProjectResult.Item;
   }
 
 }

@@ -21,6 +21,8 @@
           <th>Project Name</th>
           <th>Project Description</th>
           <th>Project Status</th>
+          <th>Developers</th>
+          <th>Project Managers</th>
         </tr>
       </thead>
       <tbody *ngFor="let project of getResult.Items">
@@ -28,6 +30,8 @@
           <td> <button (click)="requestUpdateProject(project.name.S)">{{project.name.S}}</button></td>
           <td>{{project.pdescription.S}}</td>
           <td>{{project.pstatus.S}}</td>
+          <td>{{project.developers.SS}}</td>
+          <td>{{project.projectmanagers.SS}}</td>
         </tr>
       </tbody>
     </table>
