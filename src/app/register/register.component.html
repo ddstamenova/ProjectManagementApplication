@@ -23,7 +23,7 @@
       <label for="password">Password</label>
       <input type="password" name="password" id="password" ngModel class="form-control" required>
     </div>
-    <button type="submit" class="btn btn-success">Register</button>
+    <button type="submit" class="btn btn-success" [disabled]="!regform.form.valid">Register</button>
   </form>
 
 </div>
@@ -39,7 +39,7 @@
         <label for="code">Code</label>
         <input type="text" name="code" id="code" ngModel class="form-control" required>
       </div>
-      <button type="submit" class="btn btn-success">Validate Code</button>
+      <button type="submit" class="btn btn-success" [disabled]="!codeform.form.valid">Validate Code</button>
     </form>
 
 </div>
