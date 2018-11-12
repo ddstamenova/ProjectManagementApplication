@@ -57,7 +57,7 @@
       <label for="pdescription">Project description</label>
       <input type="text" name="pdescription" id="pdescription" ngModel class="form-control" required>
     </div>
-    <button type="submit" class="btn btn-success" (click)="update()">Create</button>
+    <button type="submit" class="btn btn-success" (click)="update()" [disabled]="!codeform.form.valid">Create</button>
   </form>
 
 </div>

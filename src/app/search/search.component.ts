@@ -43,12 +43,13 @@ export class SearchComponent implements OnInit {
     this.searchProjectRequest = false;
     this.searchActiveStatusRequest = false;
     this.searchCompleteStatusRequest = false;
+    this.seeProjectResultsRequest = false;
 
   }
 
   requestSearchProject() {
     this.seeUserResultsRequest = false;
-
+    this.seeProjectResultsRequest = false;
     this.searchStatusRequest = false;
     this.searchUserRequest = false;
     this.searchProjectRequest = true;
@@ -62,6 +63,7 @@ export class SearchComponent implements OnInit {
     this.searchStatusRequest = true;
     this.searchUserRequest = false;
     this.searchProjectRequest = false;
+    this.seeProjectResultsRequest = false;
 
     // get all existing projects
     this.allProjectsResult = this.api.getProjectsLoadedResult();

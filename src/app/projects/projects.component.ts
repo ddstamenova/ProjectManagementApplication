@@ -105,7 +105,9 @@ export class ProjectsComponent implements OnInit {
 
     }
 
+
     let noProjects = false;
+
     // check if there are any projects left associated with this user
     if (this.getResult.Items.length === 0) {
       noProjects = true;
